@@ -1,0 +1,7 @@
+{
+    "lidar_parameter": {
+        "position":                         [2.82625, 0.0, -1.7638],
+        "rotationMatrix":                   [-1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,-1.0],
+        "channelStride":                    4
+    }
+}
