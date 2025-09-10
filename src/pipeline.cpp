@@ -749,6 +749,22 @@ void pipeline::sam(const std::vector<int>& allowedCores) {
                     << TBP2M_.translation().z() << "]";
                 logMessage("LOGGING", oss.str());
 #endif
+                // Update visualization buffers
+            if (MAP_.pointcloud().empty()) {
+                logMessage("ERROR", "sam: Empty point cloud in MAP_");
+                continue;
+            }
+            {
+                std::lock_guard<std::mutex> lock(buffer_mutex_);
+                if (MAPTOOGLE_) {
+                    *MAPBUFFER1_ = MAP_.pointcloud();
+                    *TBUFFER1_ = Tbc2m;
+                } else {
+                    *MAPBUFFER2_ = MAP_.pointcloud();
+                    *TBUFFER2_ = Tbc2m;
+                }
+                MAPTOOGLE_ = !MAPTOOGLE_;
+            }
             } else {
                 // Registration phase
 #ifdef DEBUG
