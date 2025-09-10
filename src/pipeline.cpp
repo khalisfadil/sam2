@@ -781,7 +781,7 @@ void pipeline::sam(const std::vector<int>& allowedCores) {
                 TBP2M_ = Tbc2m;
 #ifdef DEBUG
                 std::ostringstream oss;
-                oss << "TBP2M_: Quaternion [x, y, z, w] = [" 
+                oss << "TBP2M_ Non-GPS: Quaternion [x, y, z, w] = [" 
                     << TBP2M_.unit_quaternion().x() << ", " 
                     << TBP2M_.unit_quaternion().y() << ", " 
                     << TBP2M_.unit_quaternion().z() << ", " 
