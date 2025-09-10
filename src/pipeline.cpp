@@ -662,14 +662,14 @@ void pipeline::dataAlignment(uint16_t STEPSIZE, const std::vector<int>& ALLOWCOR
                             } else {
 #ifdef DEBUG
                                 std::ostringstream oss;
-                                oss << "dataAlignment: Successfully pushed Frame data to buffer. Alignment count: " << alignment_count << ").";
+                                oss << "dataAlignment: Successfully pushed Frame data to buffer. Alignment count: " << alignment_count << " ###############!";
                                 logMessage("LOGGING", oss.str());
 #endif
                             }
                         } else {
 #ifdef DEBUG
                             std::ostringstream oss;
-                            oss << "dataAlignment: Skipped pushing combined data. Alignment count: " << alignment_count << ").";
+                            oss << "dataAlignment: Skipped pushing combined data. Alignment count: " << alignment_count << " ###############!";
                             logMessage("LOGGING", oss.str());
 #endif
                         }
@@ -736,6 +736,19 @@ void pipeline::sam(const std::vector<int>& allowedCores) {
                 INITIALIZESTEP_--;
                 TBP2M_ = Tbc2m;
                 TBC2BP_ = tbc2bp;
+#ifdef DEBUG
+                std::ostringstream oss;
+                oss << "TBP2M_: Quaternion [x, y, z, w] = [" 
+                    << TBP2M_.unit_quaternion().x() << ", " 
+                    << TBP2M_.unit_quaternion().y() << ", " 
+                    << TBP2M_.unit_quaternion().z() << ", " 
+                    << TBP2M_.unit_quaternion().w() << "], "
+                    << "Translation [x, y, z] = [" 
+                    << TBP2M_.translation().x() << ", " 
+                    << TBP2M_.translation().y() << ", " 
+                    << TBP2M_.translation().z() << "]";
+                logMessage("LOGGING", oss.str());
+#endif
             } else {
                 // Registration phase
                 const Sophus::SE3d predTbc2m = TBP2M_ * TBC2BP_;
@@ -766,6 +779,19 @@ void pipeline::sam(const std::vector<int>& allowedCores) {
                 updatemap(keypoints, Tbc2m);
                 TBC2BP_ = TBP2M_.inverse() * Tbc2m;
                 TBP2M_ = Tbc2m;
+#ifdef DEBUG
+                std::ostringstream oss;
+                oss << "TBP2M_: Quaternion [x, y, z, w] = [" 
+                    << TBP2M_.unit_quaternion().x() << ", " 
+                    << TBP2M_.unit_quaternion().y() << ", " 
+                    << TBP2M_.unit_quaternion().z() << ", " 
+                    << TBP2M_.unit_quaternion().w() << "], "
+                    << "Translation [x, y, z] = [" 
+                    << TBP2M_.translation().x() << ", " 
+                    << TBP2M_.translation().y() << ", " 
+                    << TBP2M_.translation().z() << "]";
+                logMessage("LOGGING", oss.str());
+#endif
             }
             // Update visualization buffers
             if (MAP_.pointcloud().empty()) {
