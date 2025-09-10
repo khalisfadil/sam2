@@ -794,7 +794,7 @@ void pipeline::sam(const std::vector<int>& allowedCores) {
 #ifdef DEBUG
                 logMessage("LOGGING", "sam: align");
 #endif
-                REGISTRATION_->align(*pcout, predTbc2m.matrix().cast<float>());
+                REGISTRATION_->align(*pcout, TBP2M_.matrix().cast<float>());
 #ifdef DEBUG
                 logMessage("LOGGING", "sam: hasConverged");
 #endif
