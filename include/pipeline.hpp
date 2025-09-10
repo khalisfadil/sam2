@@ -42,10 +42,10 @@ class pipeline {
         std::atomic<int> DROPLOG_; 
         std::atomic<int> LASTDROP_;
                                                             //
-        boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<16>> LOGQUEUE_;
-        boost::lockfree::spsc_queue<LidarFrame, boost::lockfree::capacity<16>> BUFFLIDARFRAME_;         //
-        boost::lockfree::spsc_queue<std::deque<CompFrame>, boost::lockfree::capacity<16>> BUFFNAVWINFRAME_;
-        boost::lockfree::spsc_queue<FrameData, boost::lockfree::capacity<16>> BUFFDATAFRAME_;
+        boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<160>> LOGQUEUE_;
+        boost::lockfree::spsc_queue<LidarFrame, boost::lockfree::capacity<160>> BUFFLIDARFRAME_;         //
+        boost::lockfree::spsc_queue<std::deque<CompFrame>, boost::lockfree::capacity<160>> BUFFNAVWINFRAME_;
+        boost::lockfree::spsc_queue<FrameData, boost::lockfree::capacity<160>> BUFFDATAFRAME_;
 
         explicit pipeline(const std::string& LIDARMETA, const std::string& LIDARCONFIG, const std::string& IMUCONFIG, const std::string& SYSCONFIG);
         static void signalHandler(int SIGNAL);
