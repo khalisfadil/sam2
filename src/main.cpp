@@ -144,6 +144,7 @@ int main() {
         threads.emplace_back([&]() { pipeline.dataAlignment(STEPSIZE, std::vector<int>{2}); });
         threads.emplace_back([&]() { pipeline.sam(std::vector<int>{3,4,5,6}); });
         threads.emplace_back([&]() { pipeline.processLogQueue(log_filename, std::vector<int>{7}); });
+        threads.emplace_back([&]() { pipeline.runVizualization(std::vector<int>{8}); });
         while (pipeline::RUNNING_.load(std::memory_order_acquire)) {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }

@@ -1,13 +1,13 @@
 {   
     "slam_configuration": {
 
-        "intializestep":                    20,
+        "intializestep":                    500,
         "num_threads":                      4,
 
         "maplifetime":                         10,
         "mapvoxelsize":                        1.0,
-        "mapvoxelcapacity":                    20,
-        "mapmaxdistance":                      300.0,
+        "mapvoxelcapacity":                    10,
+        "mapmaxdistance":                      100.0,
 
         "registration_method":              "NDT_OMP",
         "ndt_resolution":                   1.0,
