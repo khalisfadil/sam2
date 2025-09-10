@@ -751,13 +751,37 @@ void pipeline::sam(const std::vector<int>& allowedCores) {
 #endif
             } else {
                 // Registration phase
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: predTbc2m");
+#endif
                 const Sophus::SE3d predTbc2m = TBP2M_ * TBC2BP_;
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: initframe");
+#endif
                 auto keypoints = initframe(pointcloud, TBC2BP_);
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: toPCLPointCloud");
+#endif
                 auto pc = toPCLPointCloud(keypoints);
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: setInputSource");
+#endif
                 REGISTRATION_->setInputSource(pc);
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: setInputTarget");
+#endif
                 REGISTRATION_->setInputTarget(MAP_.toPCLPointCloud());
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: pcout");
+#endif
                 pcl::PointCloud<pcl::PointXYZ>::Ptr pcout(new pcl::PointCloud<pcl::PointXYZ>);
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: align");
+#endif
                 REGISTRATION_->align(*pcout, predTbc2m.matrix().cast<float>());
+#ifdef DEBUG
+                logMessage("LOGGING", "sam: hasConverged");
+#endif
                 if (!REGISTRATION_->hasConverged()) {
                     logMessage("ERROR", "sam: PCL registration failed to converge");
                     continue;
